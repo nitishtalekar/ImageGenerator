@@ -26,7 +26,7 @@ def main():
     st.write(" ")
 
     # Create a centered textbox for user input
-    user_input = st.text_input("Enter propmt here:", key="user_input", value="")
+    user_input = st.text_input("Enter prompt here:", key="user_input", value="")
 
     # Add a space for layout purposes
     st.write(" ")
