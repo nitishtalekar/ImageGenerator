@@ -11,8 +11,6 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 import random
 
-from dotenv import load_dotenv
-
 def generate_filename(user_input):
     stripped_input = user_input.replace(" ", "")
     random_int1 = random.randint(1, 1000)
@@ -21,7 +19,6 @@ def generate_filename(user_input):
     return result
 
 def upload_image_to_s3(image_bytes, file):
-	load_dotenv()
     bucket_name = 'streamlit-demo-bucket'
     s3_file_key = file
     aws_access_key_id = st.secrets['ACCESS_KEY']
