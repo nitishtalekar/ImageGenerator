@@ -83,7 +83,7 @@ def main():
 
     st.write(" ")
 
-    user_input = st.text_input("Enter propmt here:", key="user_input", value="")
+    user_input = st.text_input("Enter your propmt here:", key="user_input", value="")
 
     st.write(" ")
 
