@@ -40,7 +40,6 @@ def add_data(prompt, url):
             database="streamlit_image_data",
             user="streamlit_admin",
             password=st.secrets['DB_PASSWORD']
-			]
         )
         cursor = connection.cursor()
 
