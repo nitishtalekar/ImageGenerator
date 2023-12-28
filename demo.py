@@ -11,6 +11,8 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 import random
 
+from dotenv import load_dotenv
+
 def generate_filename(user_input):
     stripped_input = user_input.replace(" ", "")
     random_int1 = random.randint(1, 1000)
@@ -19,10 +21,11 @@ def generate_filename(user_input):
     return result
 
 def upload_image_to_s3(image_bytes, file):
+	load_dotenv()
     bucket_name = 'streamlit-demo-bucket'
     s3_file_key = file
-    aws_access_key_id = 'AKIAY2KQUWZZ6EZ2AD5P'
-    aws_secret_access_key = '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'
+    aws_access_key_id = st.secrets['ACCESS_KEY']
+    aws_secret_access_key = st.secrets['SECRET_KEY']
     try:
         s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
         s3.upload_fileobj(io.BytesIO(image_bytes), bucket_name, s3_file_key)
@@ -39,7 +42,8 @@ def add_data(prompt, url):
             host="streamlitdemo.cz08a084ewcv.us-west-2.rds.amazonaws.com",
             database="streamlit_image_data",
             user="streamlit_admin",
-            password="Streamlit123"
+            password=st.secrets['DB_PASSWORD']
+			]
         )
         cursor = connection.cursor()
 
@@ -64,7 +68,7 @@ def add_data(prompt, url):
             connection.close()
 
 API_URL = "https://api-inference.huggingface.co/models/runwayml/stable-diffusion-v1-5"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": st.secrets['HF_KEY']}
 
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)
