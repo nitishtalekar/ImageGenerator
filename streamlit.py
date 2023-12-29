@@ -7,6 +7,7 @@ from psycopg2 import sql
 import boto3
 from botocore.exceptions import NoCredentialsError
 import random
+import os
 from dotenv import load_dotenv
 
 # Load environment variables from a file
@@ -25,8 +26,8 @@ def generate_filename(user_input):
 def upload_image_to_s3(image_bytes, file):
     bucket_name = get_env_variable('BUCKET_NAME')
     s3_file_key = file
-    aws_access_key_id = get_env_variable('AWS_ACCESS_KEY')
-    aws_secret_access_key = get_env_variable('AWS_SECRET_KEY')
+    aws_access_key_id = get_env_variable('ACCESS_KEY')
+    aws_secret_access_key = get_env_variable('SECRET_KEY')
     try:
         s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
         s3.upload_fileobj(io.BytesIO(image_bytes), bucket_name, s3_file_key)
