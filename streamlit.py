@@ -39,9 +39,9 @@ def upload_image_to_s3(image_bytes, file):
 def add_data(prompt, url):
     try:
         connection = psycopg2.connect(
-            host="streamlitdemo.cz08a084ewcv.us-west-2.rds.amazonaws.com",
-            database="streamlit_image_data",
-            user="streamlit_admin",
+            host=get_env_variable('DB_HOST'),
+            database=get_env_variable('DB_NAME'),
+            user=get_env_variable('DB_USER'),
             password=get_env_variable('DB_PASSWORD')
         )
         cursor = connection.cursor()
@@ -81,14 +81,10 @@ def getImage(input):
 
 def main():
 
-    st.title("StreamLit Demo")
-
+    st.title("StreamLit Application")
     st.write(" ")
-
-    user_input = st.text_input("Enter your propmt here:", key="user_input", value="")
-
+    user_input = st.text_input("Enter your prompt here:", key="user_input", value="")
     st.write(" ")
-
     button_clicked = st.button("Generate")
     if button_clicked:
         st.header(f"You entered: {user_input}")
