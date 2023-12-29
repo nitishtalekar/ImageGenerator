@@ -23,7 +23,7 @@ def generate_filename(user_input):
     return result
 
 def upload_image_to_s3(image_bytes, file):
-    bucket_name = 'streamlit-demo-bucket'
+    bucket_name = get_env_variable('BUCKET_NAME')
     s3_file_key = file
     aws_access_key_id = get_env_variable('AWS_ACCESS_KEY')
     aws_secret_access_key = get_env_variable('AWS_SECRET_KEY')
